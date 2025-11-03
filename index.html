@@ -1,10 +1,117 @@
 <!DOCTYPE html>
-<html>
-     <head>
-          <title> Welcome to my shit site!</title>
-     </head>
-     
-     <body>
-          <h1>Hello Delaney</h1>
-     </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jacob Silva — Portfolio</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            background-color: #0e0e0e;
+            color: #f0ede6;
+            font-family: 'Poppins', sans-serif;
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+            height: 100%;
+        }
+
+        section {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            scroll-snap-align: start;
+            transition: all 0.8s ease-out;
+        }
+
+        nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            padding: 10px 25px;
+            display: flex;
+            gap: 30px;
+            z-index: 1000;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #f0ede6;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #b6ffb6;
+        }
+
+        h1 {
+            font-size: 3rem;
+            text-shadow: 0 0 15px rgba(255,255,255,0.1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <section id="about">
+        <h1>Hello, I’m Jacob Silva</h1>
+    </section>
+    <section id="projects">
+        <h1>Projects</h1>
+    </section>
+    <section id="experience">
+        <h1>Experience</h1>
+    </section>
+    <section id="contact">
+        <h1>Contact</h1>
+    </section>
+
+    <script>
+    // Smooth scroll and fade-in combined
+    document.querySelectorAll('nav a').forEach(link => {
+        link.addEventListener('click', e => {
+            e.preventDefault();
+            const target = document.querySelector(link.getAttribute('href'));
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        });
+    });
+
+    // Fade-in when sections enter view
+    const sections = document.querySelectorAll('section');
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = 1;
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, { threshold: 0.2 });
+
+    sections.forEach(section => {
+        section.style.opacity = 0;
+        section.style.transform = 'translateY(50px)';
+        section.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
+        observer.observe(section);
+    });
+</script>
+</body>
 </html>
