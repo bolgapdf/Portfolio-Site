@@ -17,27 +17,29 @@
         }
 
         section {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             scroll-snap-align: start;
             transition: all 0.8s ease-out;
+            padding: 40px 0;
         }
 
         nav {
             position: fixed;
-            top: 20px;
+            top: 15px;
             left: 50%;
             transform: translateX(-50%);
             background-color: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             border-radius: 50px;
-            padding: 10px 25px;
+            padding: 10px 20px;
             display: flex;
-            gap: 30px;
+            gap: clamp(15px, 4vw, 30px);
             z-index: 1000;
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+            max-width: 90%;
         }
 
         nav a {
@@ -45,6 +47,8 @@
             color: #f0ede6;
             font-weight: 500;
             transition: 0.3s;
+            font-size: clamp(0.85rem, 2vw, 1rem);
+            white-space: nowrap;
         }
 
         nav a:hover {
@@ -59,6 +63,26 @@
         html {
             scroll-behavior: smooth;
         }
+
+        /* Project card hover effects */
+        #projects > div > div > div:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(182, 255, 182, 0.15);
+        }
+
+        /* Contact link hover effects */
+        #contact a[href^="mailto"]:hover {
+            background: rgba(182, 255, 182, 0.15);
+            box-shadow: 0 5px 20px rgba(182, 255, 182, 0.2);
+        }
+
+        #contact a[href^="tel"]:hover {
+            color: #b6ffb6;
+        }
+
+        #contact div a:hover {
+            opacity: 0.7;
+        }
     </style>
 </head>
 <body>
@@ -70,16 +94,126 @@
     </nav>
 
     <section id="about">
-        <h1>Hello, I’m Jacob Silva</h1>
+        <div style="max-width: 900px; width: 90%; text-align: center; padding: 20px;">
+            <img src="assets/HEADSHOT.PNG" alt="Jacob Silva" style="width: 160px; height: 160px; border-radius: 50%; object-fit: cover; margin-bottom: 25px; box-shadow: 0 8px 30px rgba(182, 255, 182, 0.2); border: 1px solid rgba(182, 255, 182, 0.4);">
+            <h1 style="margin-bottom: 12px; font-size: clamp(2rem, 5vw, 3rem); font-weight: 600;">Jacob Silva</h1>
+            <p style="font-size: clamp(1rem, 2.5vw, 1.25rem); color: #b6ffb6; margin-bottom: 18px; font-weight: 500;">Computer Science Student & Software Engineer</p>
+            <p style="font-size: clamp(0.9rem, 2vw, 1.05rem); line-height: 1.7; color: rgba(240, 237, 230, 0.85); max-width: 650px; margin: 0 auto; padding: 0 15px;">
+                Bachelor of Science in Computer Science at San Diego State University, with minors in Statistics and Mathematics.
+                Currently working as a Technical Specialist at Apple, with experience in QA automation and software engineering.
+                Passionate about iOS development, AI, and creating elegant user experiences.
+            </p>
+        </div>
     </section>
+
     <section id="projects">
-        <h1>Projects</h1>
+        <div style="max-width: 1100px; width: 90%; padding: 20px;">
+            <h1 style="text-align: center; margin-bottom: 40px; font-size: clamp(2rem, 5vw, 3rem);">Projects</h1>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px;">
+
+                <div style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border-radius: 20px; padding: 25px; border: 1px solid rgba(255, 255, 255, 0.05); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                    <h3 style="color: #b6ffb6; font-size: clamp(1.2rem, 3vw, 1.4rem); margin-bottom: 8px; font-weight: 600;">Classly</h3>
+                    <p style="color: rgba(240, 237, 230, 0.7); font-size: clamp(0.8rem, 2vw, 0.85rem); margin-bottom: 15px;">Swift, SwiftUI | Jan. 2026 – Present</p>
+                    <ul style="line-height: 1.7; color: rgba(240, 237, 230, 0.85); font-size: clamp(0.85rem, 2vw, 0.92rem); margin: 0; padding-left: 18px;">
+                        <li style="margin-bottom: 8px;">Developed an iOS home screen widget that displays upcoming class schedules that update throughout the day</li>
+                        <li style="margin-bottom: 8px;">Implementing data persistence to store and update class information across widget refresh cycles</li>
+                        <li>Designing responsive UI components optimized for multiple widget sizes and devices</li>
+                    </ul>
+                </div>
+
+                <div style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border-radius: 20px; padding: 25px; border: 1px solid rgba(255, 255, 255, 0.05); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                    <h3 style="color: #b6ffb6; font-size: clamp(1.2rem, 3vw, 1.4rem); margin-bottom: 8px; font-weight: 600;">iOS Pong</h3>
+                    <p style="color: rgba(240, 237, 230, 0.7); font-size: clamp(0.8rem, 2vw, 0.85rem); margin-bottom: 15px;">Swift, SwiftUI | Aug. 2024 – Oct. 2024</p>
+                    <ul style="line-height: 1.7; color: rgba(240, 237, 230, 0.85); font-size: clamp(0.85rem, 2vw, 0.92rem); margin: 0; padding-left: 18px;">
+                        <li style="margin-bottom: 8px;">Built a fully functional recreation of Pong with collision detection and paddle physics</li>
+                        <li style="margin-bottom: 8px;">Designed an adjustable AI opponent with multiple difficulty levels using heuristic based decision logic</li>
+                        <li>Implemented SwiftUI based UI components for score tracking, animations, and clean layout structure</li>
+                    </ul>
+                </div>
+
+                <div style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border-radius: 20px; padding: 25px; border: 1px solid rgba(255, 255, 255, 0.05); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                    <h3 style="color: #b6ffb6; font-size: clamp(1.2rem, 3vw, 1.4rem); margin-bottom: 8px; font-weight: 600;">2048 AI Agent</h3>
+                    <p style="color: rgba(240, 237, 230, 0.7); font-size: clamp(0.8rem, 2vw, 0.85rem); margin-bottom: 15px;">Python, Pandas, NumPy, PyTorch, FastAPI | Aug. 2024 – Oct. 2024</p>
+                    <ul style="line-height: 1.7; color: rgba(240, 237, 230, 0.85); font-size: clamp(0.85rem, 2vw, 0.92rem); margin: 0; padding-left: 18px;">
+                        <li style="margin-bottom: 8px;">Implemented an Expectimax based AI that selects optimal moves by evaluating probabilistic tile outcomes</li>
+                        <li style="margin-bottom: 8px;">Developed a visual display layer that renders the board state, chosen moves, and updated scores in real time</li>
+                        <li>Improved decision speed and tile evaluation accuracy through board heuristics and pruning logic</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
     </section>
+
     <section id="experience">
-        <h1>Experience</h1>
+        <div style="max-width: 1000px; width: 90%; padding: 20px;">
+            <h1 style="text-align: center; margin-bottom: 40px; font-size: clamp(2rem, 5vw, 3rem);">Experience</h1>
+
+            <div style="position: relative; padding-left: 30px; border-left: 2px solid rgba(182, 255, 182, 0.3);">
+
+                <div style="margin-bottom: 40px; position: relative;">
+                    <div style="position: absolute; left: -36px; width: 10px; height: 10px; background: #b6ffb6; border-radius: 50%; box-shadow: 0 0 12px rgba(182, 255, 182, 0.5);"></div>
+                    <h3 style="color: #b6ffb6; font-size: clamp(1.1rem, 3vw, 1.3rem); margin-bottom: 6px; font-weight: 600;">Technical Specialist</h3>
+                    <p style="color: rgba(240, 237, 230, 0.7); margin-bottom: 4px; font-size: clamp(0.9rem, 2vw, 1rem);">Apple | La Jolla, CA</p>
+                    <p style="color: rgba(240, 237, 230, 0.5); font-size: clamp(0.8rem, 2vw, 0.88rem); margin-bottom: 12px;">October 2025 – Present</p>
+                    <ul style="line-height: 1.7; color: rgba(240, 237, 230, 0.85); margin: 0; padding-left: 18px; font-size: clamp(0.85rem, 2vw, 0.92rem);">
+                        <li style="margin-bottom: 8px;">Improved troubleshooting accuracy, shown through consistently strong customer satisfaction scores, by diagnosing hardware, software, and OS issues across near all of Apple's lineup</li>
+                        <li style="margin-bottom: 8px;">Reduced customer wait times by streamlining device check-ins and repair setup, coordinating with other technicians during high traffic hours</li>
+                        <li>Strengthened daily store metrics by supporting retail workflows, guiding customers through setup, and preventing additional appointments</li>
+                    </ul>
+                </div>
+
+                <div style="margin-bottom: 40px; position: relative;">
+                    <div style="position: absolute; left: -36px; width: 10px; height: 10px; background: #b6ffb6; border-radius: 50%; box-shadow: 0 0 12px rgba(182, 255, 182, 0.5);"></div>
+                    <h3 style="color: #b6ffb6; font-size: clamp(1.1rem, 3vw, 1.3rem); margin-bottom: 6px; font-weight: 600;">Apple Support College Program Advisor (Level 2)</h3>
+                    <p style="color: rgba(240, 237, 230, 0.7); margin-bottom: 4px; font-size: clamp(0.9rem, 2vw, 1rem);">Apple | San Diego, CA</p>
+                    <p style="color: rgba(240, 237, 230, 0.5); font-size: clamp(0.8rem, 2vw, 0.88rem); margin-bottom: 12px;">Jan. 2024 – Oct. 2025</p>
+                    <ul style="line-height: 1.7; color: rgba(240, 237, 230, 0.85); margin: 0; padding-left: 18px; font-size: clamp(0.85rem, 2vw, 0.92rem);">
+                        <li style="margin-bottom: 8px;">Delivered world class remote support, reflected in above average satisfaction ratings, by resolving issues across the complete Apple lineup</li>
+                        <li style="margin-bottom: 8px;">Lowered follow up case frequency by educating customers on new and existing features, troubleshooting steps, and account related issues</li>
+                        <li>Maintained strong performance metrics by accurately identifying problems, documenting cases, and escalating advanced issues to engineering</li>
+                    </ul>
+                </div>
+
+                <div style="position: relative;">
+                    <div style="position: absolute; left: -36px; width: 10px; height: 10px; background: #b6ffb6; border-radius: 50%; box-shadow: 0 0 12px rgba(182, 255, 182, 0.5);"></div>
+                    <h3 style="color: #b6ffb6; font-size: clamp(1.1rem, 3vw, 1.3rem); margin-bottom: 6px; font-weight: 600;">QA Automation Software Engineer Career Experience</h3>
+                    <p style="color: rgba(240, 237, 230, 0.7); margin-bottom: 4px; font-size: clamp(0.9rem, 2vw, 1rem);">Apple | San Diego, CA</p>
+                    <p style="color: rgba(240, 237, 230, 0.5); font-size: clamp(0.8rem, 2vw, 0.88rem); margin-bottom: 12px;">Jan. 2025 – July 2025</p>
+                    <ul style="line-height: 1.7; color: rgba(240, 237, 230, 0.85); margin: 0; padding-left: 18px; font-size: clamp(0.85rem, 2vw, 0.92rem);">
+                        <li style="margin-bottom: 8px;">Increased system resilience, demonstrated by a 30-40% reduction in debugging time, by integrating a Chaos Client using ToxiProxy to simulate targeted network and service failures</li>
+                        <li style="margin-bottom: 8px;">Improved the team's ability to uncover weak components by designing fault injection scenarios that revealed hidden latency and dependency issues</li>
+                        <li>Enhanced the reliability of the overall test framework by collaborating with senior QA engineers to refine automated test behaviors</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
     </section>
+
     <section id="contact">
-        <h1>Contact</h1>
+        <div style="text-align: center; max-width: 600px; width: 90%; padding: 20px;">
+            <h1 style="margin-bottom: 25px; font-size: clamp(2rem, 5vw, 3rem);">Get In Touch</h1>
+            <p style="font-size: clamp(0.95rem, 2.5vw, 1.1rem); line-height: 1.7; color: rgba(240, 237, 230, 0.85); margin-bottom: 30px; padding: 0 15px;">
+                I'm always open to discussing new opportunities, projects, or just connecting. Feel free to reach out!
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 18px; align-items: center;">
+                <a href="mailto:jacob.silva2@apple.com" style="text-decoration: none; color: #b6ffb6; font-size: clamp(0.95rem, 2.5vw, 1.05rem); padding: 14px 35px; background: rgba(182, 255, 182, 0.1); border-radius: 30px; border: 1px solid rgba(182, 255, 182, 0.3); transition: all 0.3s ease; display: inline-block; word-break: break-all;">
+                    jacob.silva2@apple.com
+                </a>
+                <a href="tel:909-727-2420" style="text-decoration: none; color: #f0ede6; font-size: clamp(0.95rem, 2.5vw, 1.05rem); transition: color 0.3s ease;">
+                    909-727-2420
+                </a>
+                <div style="display: flex; gap: 25px; margin-top: 15px; flex-wrap: wrap; justify-content: center;">
+                    <a href="https://www.linkedin.com/in/jacob-silva-/" target="_blank" style="text-decoration: none; color: #b6ffb6; font-size: clamp(0.9rem, 2vw, 1rem); transition: opacity 0.3s ease;">
+                        LinkedIn
+                    </a>
+                    <a href="https://github.com/bolgapdf" target="_blank" style="text-decoration: none; color: #b6ffb6; font-size: clamp(0.9rem, 2vw, 1rem); transition: opacity 0.3s ease;">
+                        GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
     </section>
 
     <script>
