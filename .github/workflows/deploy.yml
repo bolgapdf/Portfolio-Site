@@ -1,0 +1,63 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: swift:6.3.1
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Node.js and binaryen
+        run: |
+          apt-get update
+          apt-get install -y curl binaryen
+          curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
+          apt-get install -y nodejs
+
+      - name: Cache Swift SDK for WebAssembly
+        uses: actions/cache@v4
+        with:
+          path: /root/.swiftpm/swift-sdks
+          key: wasm-sdk-swift-6.3.1
+
+      - name: Install Swift SDK for WebAssembly
+        run: |
+          swift sdk list | grep -q swift-6.3.1-RELEASE_wasm || \
+            swift sdk install https://download.swift.org/swift-6.3.1-release/wasm-sdk/swift-6.3.1-RELEASE/swift-6.3.1-RELEASE_wasm.artifactbundle.tar.gz \
+              --checksum bd47baa20771f366d8beed7970afaa30742b2210097afd15f85427226d8f4cf2
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
