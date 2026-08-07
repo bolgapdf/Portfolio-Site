@@ -6,6 +6,7 @@ struct Site {
         NavBar()
         main {
             Hero()
+            ShowcaseSection()
             ExperienceSection()
             ProjectsSection()
             SkillsSection()
