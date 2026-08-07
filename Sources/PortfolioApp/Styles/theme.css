@@ -410,3 +410,178 @@ a {
         font-size: 12px;
     }
 }
+
+/* ── Showcase ───────────────────────────────────────────────────────────────
+   A phone that cycles through the apps, in CSS alone.
+
+   Every slide runs the same keyframe — visible for its share of the cycle,
+   hidden for the rest — and is staggered by a negative animation-delay, which
+   starts it partway through. That's what keeps this to one keyframe per slide
+   count instead of one per slide, and it's why the caption and the screenshot
+   stay in step without anything coordinating them. */
+
+.showcase-stage {
+    display: grid;
+    grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+    gap: 56px;
+    align-items: center;
+    margin-top: 48px;
+}
+
+.phone {
+    position: relative;
+    aspect-ratio: 9 / 19.5;
+    border-radius: 44px;
+    padding: 10px;
+    background: linear-gradient(160deg, #3a3a3d, #131315 45%, #2a2a2d);
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.09),
+        0 30px 70px -20px rgba(0, 0, 0, 0.9);
+}
+
+.phone-screen {
+    position: relative;
+    height: 100%;
+    border-radius: 35px;
+    overflow: hidden;
+    background: #000;
+}
+
+.phone-notch {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 27%;
+    height: 22px;
+    border-radius: 12px;
+    background: #000;
+}
+
+.showcase-shot {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+}
+
+.showcase-captions {
+    position: relative;
+    min-height: 260px;
+}
+
+.showcase-caption {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 14px;
+}
+
+.showcase-name {
+    font-size: 34px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+.showcase-line {
+    font-size: 21px;
+    color: var(--text-secondary);
+}
+
+.showcase-detail {
+    font-size: 16px;
+    color: var(--text-tertiary);
+    max-width: 46ch;
+}
+
+.showcase-link {
+    color: var(--link);
+    font-size: 16px;
+}
+
+.showcase-link:hover {
+    text-decoration: underline;
+}
+
+/* Visible for the first half, then out of the way. */
+@keyframes showcase-2 {
+    0% { opacity: 0; transform: translateY(10px) scale(0.985); }
+    3% { opacity: 1; transform: none; }
+    46% { opacity: 1; transform: none; }
+    50% { opacity: 0; transform: translateY(-10px) scale(0.985); }
+    100% { opacity: 0; transform: translateY(10px) scale(0.985); }
+}
+
+/* And for the first third. */
+@keyframes showcase-3 {
+    0% { opacity: 0; transform: translateY(10px) scale(0.985); }
+    2% { opacity: 1; transform: none; }
+    30% { opacity: 1; transform: none; }
+    33.3% { opacity: 0; transform: translateY(-10px) scale(0.985); }
+    100% { opacity: 0; transform: translateY(10px) scale(0.985); }
+}
+
+.slides-2 .showcase-shot,
+.slides-2 .showcase-caption {
+    animation: showcase-2 13s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.slides-3 .showcase-shot,
+.slides-3 .showcase-caption {
+    animation: showcase-3 19.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* Negative delays: each slide starts its cycle already partway through, which
+   is what spaces them out evenly without a separate keyframe each. */
+.slides-2 .slide-0 { animation-delay: 0s; }
+.slides-2 .slide-1 { animation-delay: -6.5s; }
+
+.slides-3 .slide-0 { animation-delay: 0s; }
+.slides-3 .slide-1 { animation-delay: -6.5s; }
+.slides-3 .slide-2 { animation-delay: -13s; }
+
+@media (max-width: 900px) {
+    .showcase-stage {
+        grid-template-columns: minmax(0, 1fr);
+        justify-items: center;
+        gap: 36px;
+    }
+
+    .phone {
+        width: min(280px, 72vw);
+    }
+
+    .showcase-captions {
+        min-height: 300px;
+        width: 100%;
+    }
+
+    .showcase-caption {
+        align-items: center;
+        text-align: center;
+    }
+
+    .showcase-name { font-size: 28px; }
+    .showcase-line { font-size: 18px; }
+}
+
+/* A screen that changes on its own is the exact thing this setting is asking
+   not to happen. The first slide stays put and the rest are simply not shown. */
+@media (prefers-reduced-motion: reduce) {
+    .showcase-shot,
+    .showcase-caption {
+        animation: none !important;
+    }
+
+    .slide-0 { opacity: 1 !important; }
+
+    .showcase-caption:not(.slide-0) {
+        display: none;
+    }
+}
