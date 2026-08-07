@@ -9,7 +9,7 @@ struct Hero {
             div(.class("container reveal")) {
                 img(
                     .class("hero-portrait"),
-                    .src("/assets/headshot.png"),
+                    .src("/assets/portrait.png"),
                     .alt("Jacob Silva")
                 )
                 h1(.class("hero-name")) { ResumeData.name }
