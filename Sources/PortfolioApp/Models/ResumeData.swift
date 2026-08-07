@@ -65,7 +65,7 @@ enum ResumeData {
             location: "San Diego, CA",
             dates: "Jun 2026 – Nov 2026",
             summary:
-                "I build deployment tooling and stage-management systems in Swift, used by teams across Apple to ship services on Kubernetes."
+                "I build deployment tooling and stage-management systems in Swift, used by teams across Apple to ship services on Kubernetes. It covers 30+ repositories and hundreds of commits a day that previously needed image tags updated by hand."
         ),
         Role(
             title: "QA Automation Engineer",
