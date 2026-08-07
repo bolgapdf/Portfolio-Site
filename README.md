@@ -23,12 +23,22 @@ swift --version
 swift sdk list
 ```
 
+If `swift --version` prints 6.2.x, that's Xcode's toolchain at `/usr/bin/swift`
+shadowing the one swiftly installed. The npm scripts put `~/.swiftly/bin` first
+so `npm run dev` and `npm run build` work regardless — prepending a directory
+that doesn't exist is harmless, which is why the same scripts are what CI runs.
+`swift` on its own in that shell will still be the wrong one.
+
 ## Develop
 
 ```sh
 npm install    # also runs `swift package resolve` (preinstall)
-npm run dev    # dev server with hot reload on Swift file saves
+npm run dev    # http://localhost:5173, rebuilds on Swift and CSS saves
 ```
+
+Editing a view recompiles the WebAssembly module and reloads the page — a few
+seconds, against roughly nine minutes for a round trip through GitHub Pages.
+Worth using for anything visual.
 
 ## Build & preview
 
