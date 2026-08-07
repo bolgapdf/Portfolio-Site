@@ -412,26 +412,34 @@ a {
 }
 
 /* ── Showcase ───────────────────────────────────────────────────────────────
-   A phone that cycles through the apps, in CSS alone.
+   A section per app: devices on one side, the writing on the other, sides
+   alternating so a column of them doesn't read as a list. */
 
-   Every slide runs the same keyframe — visible for its share of the cycle,
-   hidden for the rest — and is staggered by a negative animation-delay, which
-   starts it partway through. That's what keeps this to one keyframe per slide
-   count instead of one per slide, and it's why the caption and the screenshot
-   stay in step without anything coordinating them. */
-
-.showcase-stage {
+.showcase-row {
     display: grid;
-    grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
-    gap: 56px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 64px;
     align-items: center;
-    margin-top: 48px;
+    padding: 64px 0;
 }
+
+.showcase-row.flipped .showcase-devices {
+    order: 2;
+}
+
+.showcase-devices {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+/* ---------- iPhone ---------- */
 
 .phone {
     position: relative;
+    width: min(268px, 70vw);
     aspect-ratio: 9 / 19.5;
-    border-radius: 44px;
+    border-radius: 42px;
     padding: 10px;
     background: linear-gradient(160deg, #3a3a3d, #131315 45%, #2a2a2d);
     box-shadow:
@@ -442,7 +450,7 @@ a {
 .phone-screen {
     position: relative;
     height: 100%;
-    border-radius: 35px;
+    border-radius: 33px;
     overflow: hidden;
     background: #000;
 }
@@ -453,135 +461,171 @@ a {
     left: 50%;
     transform: translateX(-50%);
     width: 27%;
-    height: 22px;
+    height: 21px;
     border-radius: 12px;
     background: #000;
 }
 
-.showcase-shot {
+/* The phone drops to a corner when a Mac is behind it. */
+.phone-inset {
     position: absolute;
-    inset: 0;
+    right: 0;
+    bottom: -28px;
+    width: 34%;
+    border-radius: 26px;
+    padding: 6px;
+}
+
+.phone-inset .phone-screen { border-radius: 21px; }
+.phone-inset .phone-notch { top: 12px; height: 13px; }
+
+/* ---------- Mac ---------- */
+
+.mac {
+    width: 100%;
+    max-width: 560px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #1c1c1e;
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.09),
+        0 30px 70px -24px rgba(0, 0, 0, 0.9);
+}
+
+.mac-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 30px;
+    padding: 0 13px;
+    background: #2c2c2e;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.mac-dot { width: 11px; height: 11px; border-radius: 50%; }
+.mac-dot.red { background: #ff5f57; }
+.mac-dot.amber { background: #febc2e; }
+.mac-dot.green { background: #28c840; }
+
+.mac-screen { background: #000; }
+
+.device-shot {
+    display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0;
 }
 
-.showcase-captions {
-    position: relative;
-    min-height: 260px;
-}
-
-.showcase-caption {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 14px;
-}
+/* ---------- Copy ---------- */
 
 .showcase-name {
-    font-size: 34px;
+    font-size: 38px;
     font-weight: 600;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.022em;
+    margin-bottom: 10px;
 }
 
 .showcase-line {
     font-size: 21px;
     color: var(--text-secondary);
+    margin-bottom: 14px;
 }
 
 .showcase-detail {
     font-size: 16px;
     color: var(--text-tertiary);
     max-width: 46ch;
+    margin-bottom: 18px;
 }
 
 .showcase-link {
+    display: inline-block;
+    margin-top: 16px;
     color: var(--link);
     font-size: 16px;
 }
 
-.showcase-link:hover {
-    text-decoration: underline;
+.showcase-link:hover { text-decoration: underline; }
+
+/* ---------- Motion ----------
+   Devices arrive from the side they sit on, so the two halves of a row meet in
+   the middle rather than both sliding the same way. Driven by the same reveal
+   observer as everything else, which fails open. */
+
+.js-reveal .showcase-row .showcase-devices {
+    opacity: 0;
+    transform: translateX(-40px) scale(0.96);
+    transition:
+        opacity 0.9s cubic-bezier(0.25, 0.1, 0.25, 1),
+        transform 0.9s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
-/* Visible for the first half, then out of the way. */
-@keyframes showcase-2 {
-    0% { opacity: 0; transform: translateY(10px) scale(0.985); }
-    3% { opacity: 1; transform: none; }
-    46% { opacity: 1; transform: none; }
-    50% { opacity: 0; transform: translateY(-10px) scale(0.985); }
-    100% { opacity: 0; transform: translateY(10px) scale(0.985); }
+.js-reveal .showcase-row.flipped .showcase-devices {
+    transform: translateX(40px) scale(0.96);
 }
 
-/* And for the first third. */
-@keyframes showcase-3 {
-    0% { opacity: 0; transform: translateY(10px) scale(0.985); }
-    2% { opacity: 1; transform: none; }
-    30% { opacity: 1; transform: none; }
-    33.3% { opacity: 0; transform: translateY(-10px) scale(0.985); }
-    100% { opacity: 0; transform: translateY(10px) scale(0.985); }
+.js-reveal .showcase-row .showcase-copy {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+        opacity 0.9s cubic-bezier(0.25, 0.1, 0.25, 1) 0.12s,
+        transform 0.9s cubic-bezier(0.25, 0.1, 0.25, 1) 0.12s;
 }
 
-.slides-2 .showcase-shot,
-.slides-2 .showcase-caption {
-    animation: showcase-2 13s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+.js-reveal .showcase-row.is-visible .showcase-devices,
+.js-reveal .showcase-row.is-visible .showcase-copy {
+    opacity: 1;
+    transform: none;
 }
 
-.slides-3 .showcase-shot,
-.slides-3 .showcase-caption {
-    animation: showcase-3 19.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+/* A slow drift once it's arrived, so the section isn't inert while read.
+   Long enough that it reads as depth rather than as something moving. */
+@keyframes device-drift {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
 }
 
-/* Negative delays: each slide starts its cycle already partway through, which
-   is what spaces them out evenly without a separate keyframe each. */
-.slides-2 .slide-0 { animation-delay: 0s; }
-.slides-2 .slide-1 { animation-delay: -6.5s; }
+.showcase-row.is-visible .phone:not(.phone-inset),
+.showcase-row.is-visible .mac {
+    animation: device-drift 7s ease-in-out 1s infinite;
+}
 
-.slides-3 .slide-0 { animation-delay: 0s; }
-.slides-3 .slide-1 { animation-delay: -6.5s; }
-.slides-3 .slide-2 { animation-delay: -13s; }
+.showcase-row.is-visible .phone-inset {
+    animation: device-drift 7s ease-in-out 1.6s infinite;
+}
 
 @media (max-width: 900px) {
-    .showcase-stage {
+    .showcase-row {
         grid-template-columns: minmax(0, 1fr);
-        justify-items: center;
-        gap: 36px;
+        gap: 40px;
+        padding: 44px 0;
     }
 
-    .phone {
-        width: min(280px, 72vw);
-    }
+    /* Devices first in both directions on a narrow screen: alternating sides
+       means nothing when there's only one column. */
+    .showcase-row.flipped .showcase-devices { order: 0; }
 
-    .showcase-captions {
-        min-height: 300px;
-        width: 100%;
-    }
-
-    .showcase-caption {
-        align-items: center;
-        text-align: center;
-    }
-
-    .showcase-name { font-size: 28px; }
+    .showcase-copy { text-align: center; }
+    .showcase-copy .pill-row { justify-content: center; }
+    .showcase-detail { margin-inline: auto; }
+    .showcase-name { font-size: 30px; }
     .showcase-line { font-size: 18px; }
+    .phone-inset { position: static; width: min(150px, 40vw); margin-top: 18px; }
+    .showcase-devices { flex-direction: column; align-items: center; }
 }
 
-/* A screen that changes on its own is the exact thing this setting is asking
-   not to happen. The first slide stays put and the rest are simply not shown. */
+/* A page that drifts on its own is what this setting is asking not to see. */
 @media (prefers-reduced-motion: reduce) {
-    .showcase-shot,
-    .showcase-caption {
-        animation: none !important;
+    .js-reveal .showcase-row .showcase-devices,
+    .js-reveal .showcase-row .showcase-copy {
+        opacity: 1;
+        transform: none;
+        transition: none;
     }
 
-    .slide-0 { opacity: 1 !important; }
-
-    .showcase-caption:not(.slide-0) {
-        display: none;
+    .showcase-row .phone,
+    .showcase-row .mac,
+    .showcase-row .phone-inset {
+        animation: none;
     }
 }
