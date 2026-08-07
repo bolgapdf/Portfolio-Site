@@ -145,6 +145,18 @@ a {
     text-align: center;
 }
 
+/* The photo is a light disc, so on this ground it needs a rim rather than a
+   shadow — a shadow under something brighter than the page reads as a smudge. */
+.hero-portrait {
+    display: block;
+    width: 116px;
+    height: 116px;
+    margin: 0 auto 26px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.14);
+}
+
 .hero-name {
     font-size: clamp(48px, 9vw, 88px);
     font-weight: 600;
@@ -563,7 +575,7 @@ a {
 }
 
 .showcase-detail {
-    font-size: 16px;
+    font-size: 17px;
     color: var(--text-tertiary);
     max-width: 46ch;
     margin-bottom: 18px;

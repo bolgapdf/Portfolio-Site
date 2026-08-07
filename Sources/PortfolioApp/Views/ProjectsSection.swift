@@ -9,8 +9,7 @@ struct ProjectsSection {
     var body: some View {
         section(.class("section"), .id("projects")) {
             div(.class("container reveal")) {
-                p(.class("section-label")) { "Projects" }
-                h2(.class("section-title")) { "Things I've built." }
+                h2(.class("section-title")) { "Projects" }
                 p(.class("section-subtitle")) {
                     "Apps I use every day. These are screenshots, not mockups."
                 }
@@ -47,7 +46,6 @@ struct ProjectRow {
 
                 div(.class("showcase-copy")) {
                     h3(.class("showcase-name")) { project.name }
-                    p(.class("showcase-line")) { project.line }
                     p(.class("showcase-detail")) { project.description }
                     div(.class("pill-row")) {
                         for tag in project.tags {

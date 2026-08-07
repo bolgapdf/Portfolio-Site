@@ -18,7 +18,6 @@ struct Language {
 /// One of the apps, with the screenshots that go beside it.
 struct Project {
     let name: String
-    let line: String
     let description: String
     let tags: [String]
     let phoneImage: String
@@ -96,7 +95,6 @@ enum ResumeData {
     static let projects: [Project] = [
         Project(
             name: "Cartridge",
-            line: "A Game Boy emulator for iPhone and Mac.",
             description: """
                 A Game Boy and Game Boy Color emulator for iPhone and Mac, written from the \
                 processor up in Swift. Color, sound, save states, and a library that syncs between \
@@ -110,7 +108,6 @@ enum ResumeData {
         ),
         Project(
             name: "Sift",
-            line: "Finds the near-duplicate photos filling up your library.",
             description: """
                 Finds near-duplicate photos, not just exact copies, such as bursts, second \
                 attempts, screenshots saved twice. Scans a library at ~1,000 photos a second, and \
@@ -123,7 +120,6 @@ enum ResumeData {
         ),
         Project(
             name: "Barbell",
-            line: "A lifting tracker that follows a rotation, not a calendar.",
             description: """
                 A lifting tracker that follows a lifting rotation instead of a calendar set workout \
                 plan, so a missed day doesn't shift everything. Apple Watch app with live heart \

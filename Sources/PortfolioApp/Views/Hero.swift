@@ -7,6 +7,11 @@ struct Hero {
     var body: some View {
         section(.class("hero"), .id("top")) {
             div(.class("container reveal")) {
+                img(
+                    .class("hero-portrait"),
+                    .src("/assets/headshot.png"),
+                    .alt("Jacob Silva")
+                )
                 h1(.class("hero-name")) { ResumeData.name }
                 p(.class("hero-role")) { ResumeData.role }
                 p(.class("hero-location")) { ResumeData.location }

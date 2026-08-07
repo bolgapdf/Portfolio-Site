@@ -5,8 +5,7 @@ struct ExperienceSection {
     var body: some View {
         section(.class("section section-alt"), .id("experience")) {
             div(.class("container reveal")) {
-                p(.class("section-label")) { "Experience" }
-                h2(.class("section-title")) { "Experience." }
+                h2(.class("section-title")) { "Experience" }
                 p(.class("section-subtitle")) {
                     "From the Genius Bar to production systems."
                 }
