@@ -6,7 +6,7 @@ struct ExperienceSection {
         section(.class("section section-alt"), .id("experience")) {
             div(.class("container reveal")) {
                 p(.class("section-label")) { "Experience" }
-                h2(.class("section-title")) { "Four roles at Apple." }
+                h2(.class("section-title")) { "Experience." }
                 p(.class("section-subtitle")) {
                     "From the Genius Bar to production systems."
                 }

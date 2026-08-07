@@ -6,9 +6,10 @@ struct Site {
         NavBar()
         main {
             Hero()
-            ShowcaseSection()
-            ExperienceSection()
+            // Projects before experience: it's the section the header's call to
+            // action points at, and the strongest thing on the page.
             ProjectsSection()
+            ExperienceSection()
             SkillsSection()
         }
         SiteFooter()

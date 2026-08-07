@@ -6,7 +6,7 @@ struct SkillsSection {
         section(.class("section section-alt"), .id("skills")) {
             div(.class("container reveal")) {
                 p(.class("section-label")) { "Skills" }
-                h2(.class("section-title")) { "Tools of the trade." }
+                h2(.class("section-title")) { "Skills." }
                 div(.class("skill-groups")) {
                     for group in ResumeData.skillGroups {
                         div(.class("skill-group")) {

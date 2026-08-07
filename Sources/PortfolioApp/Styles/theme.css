@@ -152,13 +152,51 @@ a {
     line-height: 1.03;
 }
 
-.hero-tagline {
-    max-width: 560px;
-    margin: 22px auto 0;
-    font-size: clamp(17px, 2.4vw, 21px);
-    font-weight: 300;
+.hero-role {
+    margin-top: 14px;
+    font-size: clamp(19px, 2.6vw, 24px);
+    font-weight: 400;
     letter-spacing: -0.01em;
-    line-height: 1.5;
+    color: var(--text-secondary);
+}
+
+.hero-location {
+    margin-top: 5px;
+    font-size: 16px;
+    color: var(--text-tertiary);
+}
+
+/* Years are a claim someone can ask about, so they're set in tabular figures
+   and given the same weight as the language rather than hidden in a footnote. */
+.lang-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 26px;
+}
+
+.lang {
+    font-size: 14px;
+    color: var(--text-secondary);
+    border: 1px solid var(--hairline);
+    background: var(--card-fill);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-variant-numeric: tabular-nums;
+}
+
+.lang-name {
+    color: var(--text);
+    font-weight: 600;
+}
+
+.hero-intro {
+    max-width: 620px;
+    margin: 28px auto 0;
+    font-size: clamp(16px, 2.1vw, 18px);
+    font-weight: 300;
+    line-height: 1.6;
     color: var(--text-secondary);
 }
 

@@ -8,12 +8,24 @@ struct Role {
     let summary: String
 }
 
+/// A language and how long it's been in use. Shown in the header, so the
+/// numbers are claims a reader can ask about.
+struct Language {
+    let name: String
+    let years: Int
+}
+
+/// One of the apps, with the screenshots that go beside it.
 struct Project {
     let name: String
+    let line: String
     let description: String
-    let glyph: String
-    let gradientClass: String
     let tags: [String]
+    let phoneImage: String
+    /// Only for the apps that actually ship on the Mac. Absent, the row shows
+    /// the phone alone rather than a window frame with nothing in it.
+    let macImage: String?
+    let url: String
 }
 
 struct SkillGroup {
@@ -23,14 +35,28 @@ struct SkillGroup {
 
 enum ResumeData {
     static let name = "Jacob Silva"
-    static let eyebrow = "Software Engineer"
-    static let tagline =
-        "Software engineer at Apple. Computer Science at San Diego State University. I build iOS apps, resilient test systems, and AI experiments."
+    static let role = "Software Engineer at Apple"
+    static let location = "San Diego, California"
+
+    static let languages: [Language] = [
+        Language(name: "Java", years: 6),
+        Language(name: "Python", years: 4),
+        Language(name: "Swift", years: 3),
+        Language(name: "JavaScript", years: 1),
+        Language(name: "C#", years: 1),
+    ]
+
+    static let intro = """
+        I work on deployment tooling for software engineering teams, building systems in Swift \
+        that other engineering teams use to ship services on Kubernetes. Computer Science degree \
+        from San Diego State, with minors in statistics and mathematics. Outside work I enjoy \
+        hiking with my dog and partner and working out.
+        """
 
     static let email = "jacobsilva2u@gmail.com"
     static let linkedInURL = "https://www.linkedin.com/in/jacob-silva-/"
     static let gitHubURL = "https://github.com/bolgapdf"
-    static let resumeURL = "/assets/Jacob-Silva-Resume.pdf"
+    static let resumeURL = "/assets/resume.pdf"
 
     static let roles: [Role] = [
         Role(
@@ -39,7 +65,7 @@ enum ResumeData {
             location: "San Diego, CA",
             dates: "Jun 2026 – Nov 2026",
             summary:
-                "Building deployment workflow tooling and stage-management systems in Swift for the Platform Apps and Technologies team, helping engineering teams across Apple ship services reliably at scale on Kubernetes."
+                "I build deployment tooling and stage-management systems in Swift, used by teams across Apple to ship services on Kubernetes."
         ),
         Role(
             title: "QA Automation Engineer",
@@ -47,7 +73,7 @@ enum ResumeData {
             location: "San Diego, CA",
             dates: "Jan 2025 – Jul 2025",
             summary:
-                "Architected a Chaos Client with ToxiProxy to simulate targeted network failures, latency spikes, and service degradation in CI, cutting team debugging time 30–40% and exposing hidden dependency failures."
+                "I built a chaos client on ToxiProxy that simulates network failures, latency spikes, and service degradation against distributed systems in CI. It reduced team debugging time by 30–40% and exposed dependency failures that testing hadn't caught."
         ),
         Role(
             title: "Technical Specialist",
@@ -55,7 +81,7 @@ enum ResumeData {
             location: "La Jolla, CA",
             dates: "Oct 2025 – Present",
             summary:
-                "Diagnosed and resolved complex hardware, software, and account-level issues across the full Apple lineup, with consistent first-contact resolution and above-average satisfaction ratings."
+                "I diagnose and repair hardware, software, and account issues across the Apple lineup, with consistent first-contact resolution and satisfaction ratings within the 90th percentile of stores."
         ),
         Role(
             title: "iOS/macOS Support Advisor",
@@ -63,34 +89,51 @@ enum ResumeData {
             location: "San Diego, CA",
             dates: "Jan 2024 – Oct 2025",
             summary:
-                "Resolved iOS and macOS issues over phone-based support with above-average satisfaction ratings, escalating distributed-system and account-infrastructure issues for root-cause investigation."
+                "I handled iOS and macOS support by phone, and escalated distributed-system and account-infrastructure issues for root-cause investigation."
         ),
     ]
 
     static let projects: [Project] = [
         Project(
-            name: "ClearCut",
-            description:
-                "A personal finance app for iOS — CloudKit-synced across devices, with Swift Charts spending insights, budget alert notifications, and CSV import.",
-            glyph: "$",
-            gradientClass: "gradient-green",
-            tags: ["Swift", "SwiftUI", "SwiftData", "Swift Charts", "CloudKit"]
+            name: "Cartridge",
+            line: "A Game Boy emulator for iPhone and Mac.",
+            description: """
+                A Game Boy and Game Boy Color emulator for iPhone and Mac, written from the \
+                processor up in Swift. Color, sound, save states, and a library that syncs between \
+                devices via iCloud. Verified against the reference test suites the emulator \
+                community uses.
+                """,
+            tags: ["Swift", "SwiftUI", "Emulation", "iOS · macOS"],
+            phoneImage: "/assets/showcase/cartridge-phone.png",
+            macImage: "/assets/showcase/cartridge-mac.png",
+            url: "https://github.com/bolgapdf/Cartridge"
         ),
         Project(
-            name: "2048 AI Agent",
-            description:
-                "An Expectimax agent that plays 2048, weighing probabilistic tile outcomes with board heuristics and pruning — visualized in real time via FastAPI.",
-            glyph: "2048",
-            gradientClass: "gradient-purple",
-            tags: ["Python", "NumPy", "PyTorch", "FastAPI"]
+            name: "Sift",
+            line: "Finds the near-duplicate photos filling up your library.",
+            description: """
+                Finds near-duplicate photos, not just exact copies, such as bursts, second \
+                attempts, screenshots saved twice. Scans a library at ~1,000 photos a second, and \
+                gives a simple interface to keep or delete photos.
+                """,
+            tags: ["Swift", "PhotoKit", "Image analysis", "iOS"],
+            phoneImage: "/assets/showcase/sift-phone.png",
+            macImage: nil,
+            url: "https://github.com/bolgapdf/Sift"
         ),
         Project(
-            name: "Classly",
-            description:
-                "A home-screen widget surfacing live class schedules with Core Data persistence and adaptive layouts across widget sizes and devices.",
-            glyph: "◷",
-            gradientClass: "gradient-orange",
-            tags: ["Swift", "SwiftUI", "WidgetKit", "Core Data"]
+            name: "Barbell",
+            line: "A lifting tracker that follows a rotation, not a calendar.",
+            description: """
+                A lifting tracker that follows a lifting rotation instead of a calendar set workout \
+                plan, so a missed day doesn't shift everything. Apple Watch app with live heart \
+                rate, and a rest timer on the Lock Screen. Logged record of lifts completed, \
+                personal records, and upcoming workouts.
+                """,
+            tags: ["SwiftUI", "SwiftData", "watchOS", "HealthKit"],
+            phoneImage: "/assets/showcase/barbell-phone.png",
+            macImage: nil,
+            url: "https://github.com/bolgapdf/Barbell"
         ),
     ]
 
@@ -102,20 +145,26 @@ enum ResumeData {
         SkillGroup(
             label: "iOS & Apple Frameworks",
             skills: [
-                "SwiftUI", "WidgetKit", "SwiftData", "Swift Charts", "CloudKit",
-                "UserNotifications", "Xcode", "Instruments",
+                "SwiftUI", "SwiftData", "WidgetKit", "Swift Charts", "CloudKit", "HealthKit",
+                "ActivityKit", "PhotoKit", "AVFoundation", "Core Animation",
             ]
+        ),
+        SkillGroup(
+            label: "Testing",
+            skills: ["Swift Testing", "XCTest", "XCUITest"]
         ),
         SkillGroup(
             label: "Backend & Infrastructure",
             skills: [
                 "Server-side Swift", "Kubernetes", "Docker", "REST APIs", "CI/CD",
-                "Distributed Systems",
+                "Distributed Systems", "GitHub Actions",
             ]
         ),
         SkillGroup(
-            label: "Data & Libraries",
-            skills: ["PyTorch", "NumPy", "Pandas", "FastAPI", "Matplotlib", "Git"]
+            label: "Tools & Data",
+            skills: [
+                "Xcode", "Instruments", "Git", "PyTorch", "NumPy", "Pandas", "FastAPI",
+            ]
         ),
     ]
 }
