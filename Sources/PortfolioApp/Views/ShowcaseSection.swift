@@ -91,12 +91,10 @@ struct MacFrame {
     var name: String
 
     var body: some View {
+        // No drawn window chrome: the screenshot is of a real window and
+        // already has its own. Faking a second title bar above a real one is
+        // the sort of detail that makes a whole page look untrustworthy.
         div(.class("mac")) {
-            div(.class("mac-bar")) {
-                span(.class("mac-dot red")) {}
-                span(.class("mac-dot amber")) {}
-                span(.class("mac-dot green")) {}
-            }
             div(.class("mac-screen")) {
                 img(
                     .class("device-shot"),
@@ -131,7 +129,7 @@ struct ShowcaseApp {
                 """,
             tags: ["Swift", "SwiftUI", "Emulation", "iOS · macOS"],
             phoneImage: "/assets/showcase/cartridge-phone.png",
-            macImage: nil,
+            macImage: "/assets/showcase/cartridge-mac.png",
             url: "https://github.com/bolgapdf/Cartridge"
         ),
         ShowcaseApp(

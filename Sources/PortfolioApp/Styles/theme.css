@@ -492,21 +492,7 @@ a {
         0 30px 70px -24px rgba(0, 0, 0, 0.9);
 }
 
-.mac-bar {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    height: 30px;
-    padding: 0 13px;
-    background: #2c2c2e;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.mac-dot { width: 11px; height: 11px; border-radius: 50%; }
-.mac-dot.red { background: #ff5f57; }
-.mac-dot.amber { background: #febc2e; }
-.mac-dot.green { background: #28c840; }
-
+/* The screenshot carries the real title bar, so nothing is drawn over it. */
 .mac-screen { background: #000; }
 
 .device-shot {
