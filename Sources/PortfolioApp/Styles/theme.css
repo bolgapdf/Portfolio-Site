@@ -363,12 +363,59 @@ a {
     padding: 7px 14px;
 }
 
+/* ---------- Outside work ----------
+   A sign-off, not a section: no title, less vertical padding than .section, and
+   the photo capped small enough that it can't compete with the hero portrait. */
+
+.outside {
+    background: var(--bg);
+    padding: 72px 0 88px;
+}
+
+.outside-inner {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.outside-photo {
+    width: 190px;
+    flex: none;
+    aspect-ratio: 931 / 1400;
+    object-fit: cover;
+    border-radius: 16px;
+    /* Same rim as the hero portrait — the photo is brighter than the page, so
+       a shadow under it would read as a smudge. */
+    border: 0.5px solid var(--hairline);
+}
+
+.outside-copy .eyebrow { margin-bottom: 0; }
+
+.outside-line {
+    margin-top: 6px;
+    font-size: 17px;
+    color: var(--text-tertiary);
+    max-width: 34ch;
+}
+
+@media (max-width: 700px) {
+    .outside-inner { flex-direction: column; text-align: center; gap: 22px; }
+    .outside-photo { width: 168px; }
+    .outside-line { margin-inline: auto; }
+}
+
 /* ---------- Footer ---------- */
 
 .footer {
     background: var(--bg);
     border-top: 0.5px solid var(--hairline);
     padding: 40px 0 48px;
+    /* The nav is sticky, so the Contact link has to stop short of it. */
+    scroll-margin-top: var(--nav-height);
+}
+
+.footer .eyebrow {
+    margin-bottom: 12px;
 }
 
 .footer-links {
@@ -451,13 +498,15 @@ a {
     }
 }
 
-@media (max-width: 400px) {
+/* Five links plus the name is a tight fit on a small phone, so the last step
+   down buys back the width rather than letting the row overflow. */
+@media (max-width: 430px) {
     .nav-links {
-        gap: 12px;
+        gap: 10px;
     }
 
     .nav-links a {
-        font-size: 12px;
+        font-size: 11.5px;
     }
 }
 
@@ -562,10 +611,30 @@ a {
 /* ---------- Copy ---------- */
 
 .showcase-name {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
     font-size: 38px;
     font-weight: 600;
     letter-spacing: -0.022em;
     margin-bottom: 10px;
+}
+
+.showcase-name-sep {
+    color: var(--text-tertiary);
+    font-weight: 400;
+}
+
+/* Platform pills read as a different kind of fact from the skill pills below,
+   so they're outlined rather than filled. Same shape, no new colour. */
+.pill-platform {
+    background: none;
+    border: 0.5px solid var(--hairline);
+    color: var(--text-secondary);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
 }
 
 .showcase-line {
@@ -650,6 +719,7 @@ a {
 
     .showcase-copy { text-align: center; }
     .showcase-copy .pill-row { justify-content: center; }
+    .showcase-name { justify-content: center; }
     .showcase-detail { margin-inline: auto; }
     .showcase-name { font-size: 30px; }
     .showcase-line { font-size: 18px; }

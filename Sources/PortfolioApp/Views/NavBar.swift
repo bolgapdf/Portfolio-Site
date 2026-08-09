@@ -11,6 +11,7 @@ struct NavBar {
                     a(.href("#projects")) { "Projects" }
                     a(.href("#skills")) { "Skills" }
                     a(.href(ResumeData.resumeURL), .target(.blank)) { "Resume" }
+                    a(.href("#contact")) { "Contact" }
                 }
             }
         }

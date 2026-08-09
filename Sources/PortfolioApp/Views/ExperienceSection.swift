@@ -6,9 +6,6 @@ struct ExperienceSection {
         section(.class("section section-alt"), .id("experience")) {
             div(.class("container reveal")) {
                 h2(.class("section-title")) { "Experience" }
-                p(.class("section-subtitle")) {
-                    "From the Genius Bar to production systems."
-                }
                 div(.class("grid grid-2")) {
                     for role in ResumeData.roles {
                         RoleCard(role: role)

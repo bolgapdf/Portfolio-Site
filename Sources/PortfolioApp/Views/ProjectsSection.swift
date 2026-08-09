@@ -10,9 +10,6 @@ struct ProjectsSection {
         section(.class("section"), .id("projects")) {
             div(.class("container reveal")) {
                 h2(.class("section-title")) { "Projects" }
-                p(.class("section-subtitle")) {
-                    "Apps I use every day. These are screenshots, not mockups."
-                }
             }
 
             for (index, project) in ResumeData.projects.enumerated() {
@@ -45,7 +42,17 @@ struct ProjectRow {
                 }
 
                 div(.class("showcase-copy")) {
-                    h3(.class("showcase-name")) { project.name }
+                    h3(.class("showcase-name")) {
+                        span { project.name }
+                        // Decorative: the pills already separate themselves.
+                        span(
+                            .class("showcase-name-sep"),
+                            .custom(name: "aria-hidden", value: "true")
+                        ) { "•" }
+                        for platform in project.platforms {
+                            span(.class("pill pill-platform")) { platform }
+                        }
+                    }
                     p(.class("showcase-detail")) { project.description }
                     div(.class("pill-row")) {
                         for tag in project.tags {

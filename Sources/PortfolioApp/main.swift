@@ -6,11 +6,11 @@ struct Site {
         NavBar()
         main {
             Hero()
-            // Projects before experience: it's the section the header's call to
-            // action points at, and the strongest thing on the page.
-            ProjectsSection()
+            // Same order as the nav, so the links and the scroll agree.
             ExperienceSection()
+            ProjectsSection()
             SkillsSection()
+            OutsideWork()
         }
         SiteFooter()
     }

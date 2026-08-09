@@ -19,6 +19,10 @@ struct Language {
 struct Project {
     let name: String
     let description: String
+    /// What it runs on. Sits beside the name rather than in the pill row —
+    /// it's the first thing someone asks, and it isn't a skill.
+    let platforms: [String]
+    /// What it's built out of.
     let tags: [String]
     let phoneImage: String
     /// Only for the apps that actually ship on the Mac. Absent, the row shows
@@ -48,11 +52,15 @@ enum ResumeData {
     static let intro = """
         I work on deployment tooling for software engineering teams, building systems in Swift \
         that other engineering teams use to ship services on Kubernetes. Computer Science degree \
-        from San Diego State, with minors in statistics and mathematics. Outside work I enjoy \
-        hiking with my dog and partner and working out.
+        from San Diego State, with minors in statistics and mathematics. Outside of work, I enjoy \
+        working out, as well as going on hikes with my dog and partner.
         """
 
-    static let email = "jacobsilva2u@gmail.com"
+    /// Caption for the closing photo. Says who's in it and nothing more — the
+    /// hero intro already covers the hiking, so this doesn't repeat it.
+    static let outsideWork = "My partner, our dog, and me."
+
+    static let email = "jacob@jacobsilva.me"
     static let linkedInURL = "https://www.linkedin.com/in/jacob-silva-/"
     static let gitHubURL = "https://github.com/bolgapdf"
     static let resumeURL = "/assets/resume.pdf"
@@ -101,7 +109,8 @@ enum ResumeData {
                 devices via iCloud. Verified against the reference test suites the emulator \
                 community uses.
                 """,
-            tags: ["Swift", "SwiftUI", "Emulation", "iOS · macOS"],
+            platforms: ["iOS", "macOS"],
+            tags: ["Swift", "SwiftUI", "Core Animation", "AVFoundation"],
             phoneImage: "/assets/showcase/cartridge-phone.png",
             macImage: "/assets/showcase/cartridge-mac.png",
             url: "https://github.com/bolgapdf/Cartridge"
@@ -113,7 +122,8 @@ enum ResumeData {
                 attempts, screenshots saved twice. Scans a library at ~1,000 photos a second, and \
                 gives a simple interface to keep or delete photos.
                 """,
-            tags: ["Swift", "PhotoKit", "Image analysis", "iOS"],
+            platforms: ["iOS"],
+            tags: ["Swift", "SwiftUI", "PhotoKit", "Perceptual hashing"],
             phoneImage: "/assets/showcase/sift-phone.png",
             macImage: nil,
             url: "https://github.com/bolgapdf/Sift"
@@ -126,7 +136,8 @@ enum ResumeData {
                 rate, and a rest timer on the Lock Screen. Logged record of lifts completed, \
                 personal records, and upcoming workouts.
                 """,
-            tags: ["SwiftUI", "SwiftData", "watchOS", "HealthKit"],
+            platforms: ["iOS", "watchOS"],
+            tags: ["Swift", "SwiftUI", "SwiftData", "HealthKit", "ActivityKit"],
             phoneImage: "/assets/showcase/barbell-phone.png",
             macImage: nil,
             url: "https://github.com/bolgapdf/Barbell"
