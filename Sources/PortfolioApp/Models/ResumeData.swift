@@ -36,6 +36,21 @@ struct SkillGroup {
     let skills: [String]
 }
 
+enum ContactIcon {
+    case email, resume, gitHub, linkedIn
+}
+
+/// One way to get in touch. `detail` is the actual address or handle rather
+/// than a description of it, so the row answers the question without a click.
+struct ContactLink {
+    let label: String
+    let detail: String
+    let url: String
+    let icon: ContactIcon
+    /// False for mailto, which should hand off to a mail client in place.
+    let opensInNewTab: Bool
+}
+
 enum ResumeData {
     static let name = "Jacob Silva"
     static let role = "Software Engineer at Apple"
@@ -56,9 +71,40 @@ enum ResumeData {
         working out, as well as going on hikes with my dog and partner.
         """
 
-    /// Caption for the closing photo. Says who's in it and nothing more — the
+    /// Caption for the contact photo. Says who's in it and nothing more — the
     /// hero intro already covers the hiking, so this doesn't repeat it.
     static let outsideWork = "My partner, our dog, and me."
+
+    static let contactLinks: [ContactLink] = [
+        ContactLink(
+            label: "Email",
+            detail: email,
+            url: "mailto:\(email)",
+            icon: .email,
+            opensInNewTab: false
+        ),
+        ContactLink(
+            label: "Resume",
+            detail: "One page, PDF",
+            url: resumeURL,
+            icon: .resume,
+            opensInNewTab: true
+        ),
+        ContactLink(
+            label: "GitHub",
+            detail: "github.com/bolgapdf",
+            url: gitHubURL,
+            icon: .gitHub,
+            opensInNewTab: true
+        ),
+        ContactLink(
+            label: "LinkedIn",
+            detail: "in/jacob-silva-",
+            url: linkedInURL,
+            icon: .linkedIn,
+            opensInNewTab: true
+        ),
+    ]
 
     static let email = "jacob@jacobsilva.me"
     static let linkedInURL = "https://www.linkedin.com/in/jacob-silva-/"

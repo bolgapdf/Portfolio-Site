@@ -10,7 +10,7 @@ struct Site {
             ExperienceSection()
             ProjectsSection()
             SkillsSection()
-            OutsideWork()
+            ContactSection()
         }
         SiteFooter()
     }

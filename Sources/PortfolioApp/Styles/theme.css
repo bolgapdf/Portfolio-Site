@@ -363,45 +363,168 @@ a {
     padding: 7px 14px;
 }
 
-/* ---------- Outside work ----------
-   A sign-off, not a section: no title, less vertical padding than .section, and
-   the photo capped small enough that it can't compete with the hero portrait. */
+/* ---------- Contact ----------
+   Photo on the left, the four ways to reach me on the right. The photo is
+   sized to the height of the 2x2 card grid so the two columns land together
+   rather than one trailing off. */
 
-.outside {
-    background: var(--bg);
-    padding: 72px 0 88px;
+.contact-inner {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: 210px minmax(0, 1fr);
+    gap: 34px;
+    align-items: start;
 }
 
-.outside-inner {
-    display: flex;
-    align-items: center;
-    gap: 28px;
+.contact-figure {
+    margin: 0;
 }
 
-.outside-photo {
-    width: 190px;
-    flex: none;
+.contact-photo {
+    display: block;
+    width: 100%;
     aspect-ratio: 931 / 1400;
     object-fit: cover;
     border-radius: 16px;
-    /* Same rim as the hero portrait — the photo is brighter than the page, so
+    /* Same rim as the hero portrait: the photo is brighter than the page, so
        a shadow under it would read as a smudge. */
     border: 0.5px solid var(--hairline);
 }
 
-.outside-copy .eyebrow { margin-bottom: 0; }
-
-.outside-line {
-    margin-top: 6px;
-    font-size: 17px;
+.contact-caption {
+    margin-top: 12px;
+    font-size: 13px;
+    line-height: 1.45;
     color: var(--text-tertiary);
-    max-width: 34ch;
 }
 
-@media (max-width: 700px) {
-    .outside-inner { flex-direction: column; text-align: center; gap: 22px; }
-    .outside-photo { width: 168px; }
-    .outside-line { margin-inline: auto; }
+/* Four full-width rows rather than a 2x2 block: stacked, the column comes out
+   the same height as the photo beside it, so the two finish together. */
+.contact-links {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+}
+
+.contact-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 17px 22px;
+    border: 0.5px solid var(--hairline);
+    border-radius: 14px;
+    background: var(--card-fill);
+    transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.contact-card:hover {
+    border-color: var(--text-tertiary);
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-2px);
+}
+
+.contact-card:focus-visible {
+    outline: 2px solid var(--link);
+    outline-offset: 3px;
+}
+
+.contact-icon {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 11px;
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text-secondary);
+    transition: color 0.2s ease;
+}
+
+.contact-card:hover .contact-icon {
+    color: var(--text);
+}
+
+/* The mark is painted as a mask so it takes currentColor, which is what makes
+   it follow the card's hover state without a second copy of the file. */
+.contact-icon::after {
+    content: "";
+    width: 20px;
+    height: 20px;
+    background-color: currentColor;
+    -webkit-mask: var(--icon) center / contain no-repeat;
+    mask: var(--icon) center / contain no-repeat;
+}
+
+.icon-email { --icon: url("/assets/icons/email.svg"); }
+.icon-resume { --icon: url("/assets/icons/resume.svg"); }
+.icon-github { --icon: url("/assets/icons/github.svg"); }
+.icon-linkedin { --icon: url("/assets/icons/linkedin.svg"); }
+
+/* Label left, address right, so a wide card is filled rather than padded. */
+.contact-text {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 18px;
+}
+
+.contact-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+/* Addresses are long and must not widen the card, so they clip rather than
+   wrap onto a second line that would make one card taller than its neighbour. */
+.contact-detail {
+    font-size: 13px;
+    color: var(--text-tertiary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@media (max-width: 820px) {
+    .contact-inner {
+        grid-template-columns: 168px minmax(0, 1fr);
+        gap: 24px;
+    }
+
+    .contact-links {
+        gap: 12px;
+    }
+
+    /* Too narrow to hold a label and an address on one line. */
+    .contact-text {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 2px;
+    }
+
+    .contact-detail {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 560px) {
+    .contact-inner {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 26px;
+        justify-items: center;
+    }
+
+    .contact-figure {
+        max-width: 200px;
+        text-align: center;
+    }
+
+    .contact-links {
+        width: 100%;
+    }
 }
 
 /* ---------- Footer ---------- */
@@ -409,33 +532,10 @@ a {
 .footer {
     background: var(--bg);
     border-top: 0.5px solid var(--hairline);
-    padding: 40px 0 48px;
-    /* The nav is sticky, so the Contact link has to stop short of it. */
-    scroll-margin-top: var(--nav-height);
-}
-
-.footer .eyebrow {
-    margin-bottom: 12px;
-}
-
-.footer-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 24px;
-}
-
-.footer-links a {
-    font-size: 13px;
-    color: var(--text-secondary);
-    transition: color 0.2s ease;
-}
-
-.footer-links a:hover {
-    color: var(--text);
+    padding: 28px 0 34px;
 }
 
 .footer-copy {
-    margin-top: 20px;
     font-size: 12px;
     color: var(--text-tertiary);
 }
@@ -614,27 +714,23 @@ a {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 12px;
     font-size: 38px;
     font-weight: 600;
     letter-spacing: -0.022em;
     margin-bottom: 10px;
 }
 
-.showcase-name-sep {
-    color: var(--text-tertiary);
-    font-weight: 400;
-}
-
-/* Platform pills read as a different kind of fact from the skill pills below,
-   so they're outlined rather than filled. Same shape, no new colour. */
+/* Filled rather than outlined: a hairline border at this size read as a smudge
+   around the text instead of a shape. Set a touch smaller and brighter than the
+   skill pills below so the two still don't look like the same list. */
 .pill-platform {
-    background: none;
-    border: 0.5px solid var(--hairline);
+    background: rgba(255, 255, 255, 0.08);
     color: var(--text-secondary);
-    font-size: 12px;
+    font-size: 11.5px;
     font-weight: 600;
     letter-spacing: 0.01em;
+    padding: 5px 11px;
 }
 
 .showcase-line {

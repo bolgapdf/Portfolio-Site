@@ -44,11 +44,6 @@ struct ProjectRow {
                 div(.class("showcase-copy")) {
                     h3(.class("showcase-name")) {
                         span { project.name }
-                        // Decorative: the pills already separate themselves.
-                        span(
-                            .class("showcase-name-sep"),
-                            .custom(name: "aria-hidden", value: "true")
-                        ) { "•" }
                         for platform in project.platforms {
                             span(.class("pill pill-platform")) { platform }
                         }
